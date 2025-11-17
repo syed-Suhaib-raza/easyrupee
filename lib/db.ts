@@ -9,3 +9,19 @@ export const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
 });
+
+export interface UserRow {
+  user_id: number;
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  created_at: Date;
+}
+
+export interface SessionRow {
+  SessionID: number;
+  UserID: number;
+  Created: Date;
+  Expires: Date;
+}

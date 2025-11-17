@@ -14,7 +14,13 @@ export default function LoginPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password, phone })
     })
-    alert('Registered (demo). You can now go to dashboard.')
+    return (
+        <main>
+        <div className='alert alert-success alert-soft'>
+            <h2>Registration Successful!</h2>
+        </div>
+        </main>
+    )
   }
 
   return (
