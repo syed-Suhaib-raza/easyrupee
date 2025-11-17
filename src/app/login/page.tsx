@@ -16,13 +16,7 @@ export default function LoginPage() {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-    if(response){
-      const result = await fetch('/api/log', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ name, email, password })
-    })    
-    }
+    return response
   }
 
   return (
@@ -31,7 +25,7 @@ export default function LoginPage() {
       <form onSubmit={handleRegister} className="mt-4 space-y-3">
         <input className="border p-2 w-full" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
         <input className="border p-2 w-full" placeholder="Password" value={password} onChange={e=>setPass(e.target.value)} />
-        <button className="btn btn-neutral btn-outline">Submit</button>
+        <button className="btn btn-accent btn-soft">Submit</button>
       </form>
     </main>
   )
