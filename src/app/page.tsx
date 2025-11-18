@@ -1,12 +1,22 @@
 export default function HomePage() {
   return (
-    <section className="p-8">
-      <h1 className="text-3xl font-bold">EasyRupee</h1>
-      <p className="mt-4 text-gray-600">A Digital Wallet & Expense Management System</p>
-      <div className="mt-6 space-x-3">
-        <a href="/login" className="bg-blue-600 text-white px-4 py-2 rounded">Login</a>
-        <a href="/register" className="border px-4 py-2 rounded">Register</a>
+    <div
+  className="hero max-h-screen max-w-screen"
+  style={{
+    backgroundImage:
+      "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+  }}
+>
+  <div className="hero-overlay"></div>
+  <div className="hero-content text-neutral-content text-center">
+    <div className="max-w-md">
+      <h1 className="mb-5 text-5xl font-bold">EasyRupee</h1>
+      <div className="flex gap-4 justify-center">
+      <a href="/login"><button className="btn btn-accent rounded-field">Login</button></a>
+      <a href="/register"><button className="btn btn-neutral rounded-field">Register</button></a>
       </div>
-    </section>
+    </div>
+  </div>
+</div>
   )
 }

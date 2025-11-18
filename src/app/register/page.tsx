@@ -1,4 +1,5 @@
 'use client'
+import { redirect, RedirectType } from 'next/navigation'
 import { useState } from 'react'
 
 export default function LoginPage() {
@@ -9,7 +10,7 @@ export default function LoginPage() {
 
   async function handleRegister(e:any) {
     e.preventDefault()
-    await fetch('/api/users', {
+    await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password, phone })
@@ -25,14 +26,24 @@ export default function LoginPage() {
 
   return (
     <main className="max-w-md mx-auto p-6">
-      <h1 className="text-2xl font-bold">Register (demo)</h1>
-      <form onSubmit={handleRegister} className="mt-4 space-y-3">
-        <input className="border p-2 w-full" placeholder="Name" value={name} onChange={e=>setName(e.target.value)} />
-        <input className="border p-2 w-full" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
-        <input className="border p-2 w-full" placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
-        <input className="border p-2 w-full" placeholder="Phone" value={phone} onChange={e=>setPhone(e.target.value)} />
-        <button className="bg-green-600 text-white px-4 py-2 rounded">Submit</button>
-      </form>
+      <h1 className="text-2xl font-bold mb-5 text-center">Register</h1>
+      <div className="flex justify-center">
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 space-y-4">
+        <label className="label">Name</label>
+        <input type="text" className="input" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}/>
+        
+        <label className="label">Email</label>
+        <input type="email" className="input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+
+        <label className="label">Password</label>
+        <input type="password" className="input" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+        <label className="label">Phone</label>
+        <input type="tel" className="input" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}/>
+        <button className="btn btn-neutral mt-4 rounded-field" onClick={handleRegister}>Register</button>
+        <button className="btn btn-accent rounded-field" onClick={() => redirect('/login')}>Login</button>
+      </fieldset>
+      </div>
     </main>
   )
 }
