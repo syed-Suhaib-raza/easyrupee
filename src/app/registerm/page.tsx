@@ -7,13 +7,14 @@ export default function LoginPage() {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [phone, setPhone] = useState('')
+  const [category, setCategory] = useState('')
 
   async function handleRegister(e:any) {
     e.preventDefault()
-    await fetch('/api/auth/register', {
+    await fetch('/api/auth/registerm', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password, phone })
+      body: JSON.stringify({ name, email, password, phone, category })
     })
     return (
         <main>
@@ -40,7 +41,24 @@ export default function LoginPage() {
 
         <label className="label">Phone</label>
         <input type="tel" className="input" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}/>
-        <p><a href="/registerm">Are you a merchant?</a></p>
+
+        <label className="label" htmlFor="category">Business Category</label>
+        <select
+            id="category"
+            className="select select-bordered w-full rounded-field bg-base-100"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            aria-label="Business Category"
+        >
+            <option value="" disabled hidden>Select category</option>
+            <option value="1">Retail</option>
+            <option value="2">Food</option>
+            <option value="3">Entertainment</option>
+            <option value="4">Utility</option>
+        </select>
+
+        <p><a href="/register">Are you a user?</a></p>
+
         <button className="btn btn-neutral rounded-field" onClick={handleRegister}>Register</button>
         <button className="btn btn-accent rounded-field" onClick={() => redirect('/login')}>Login</button>
       </fieldset>

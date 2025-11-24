@@ -16,4 +16,18 @@ html,body { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Ro
   * {
     @apply border-border outline-ring/50; }
   body {
-    @apply bg-background text-foreground; } }
+    @apply bg-background text-white;
+    color: #fff;
+  }
+
+  /* Force all text across the site to white to match request */
+  body * {
+    color: #fff !important;
+  }
+
+  /* Make placeholder text readable on white text background */
+  ::placeholder {
+    color: rgba(255,255,255,0.6) !important;
+    opacity: 1;
+  }
+}
