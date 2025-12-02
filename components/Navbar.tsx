@@ -7,7 +7,7 @@ export default function Navbar(){
     <div className="flex-1">
       <Link href="/"><span className="font-bold text-3xl text-base-content ml-2">EasyRupee</span></Link>
     </div>
-    <div className="flex-none">
+    <div className="flex-none mr-2">
       <ul className="menu menu-horizontal px-1">
         <Link href="/dashboard" className='btn btn-soft btn-accent '>Dashboard</Link>
         <Link href="/transactions" className='btn btn-soft btn-accent'>Transactions</Link>
