@@ -22,7 +22,6 @@ type Wallet = {
 };
 
 export default function TransactionsPage() {
-  // typed states to avoid `never[]` errors
   const [tx, setTx] = useState<Tx[]>([]);
   const [wallets, setWallets] = useState<Wallet[] | null>(null);
 
@@ -30,14 +29,14 @@ export default function TransactionsPage() {
   const [loadingWallets, setLoadingWallets] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // form state (typed)
+
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [typeId, setTypeId] = useState<string>("1");
   const [walletRecv, setWalletRecv] = useState<string>("");
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  // Fetch transactions
+  
   async function fetchTx() {
     setLoading(true);
     setError(null);
@@ -47,11 +46,11 @@ export default function TransactionsPage() {
       if (!res.ok) throw new Error(`Failed to fetch transactions (${res.status})`);
       const data = (await res.json()) as unknown;
 
-      // Try to coerce into Tx[] safely
+      
       if (Array.isArray(data)) {
         setTx(data as Tx[]);
       } else {
-        // server may return { error } or single object; handle gracefully
+        
         setTx([]);
       }
     } catch (err: any) {
@@ -61,7 +60,7 @@ export default function TransactionsPage() {
     }
   }
 
-  // Optional: fetch wallets for select input
+  
   async function fetchWallets() {
     setLoadingWallets(true);
     try {
@@ -96,7 +95,7 @@ export default function TransactionsPage() {
     e.preventDefault();
     setError(null);
 
-    // basic validation
+    
     const amt = Number(amount);
     if (!amount || Number.isNaN(amt) || amt === 0) {
       setError("Enter a non-zero amount.");
@@ -134,7 +133,7 @@ export default function TransactionsPage() {
 
       const created = (await res.json()) as { id?: number | string; amount?: number; description?: string; type_id?: number };
 
-      // Build a Tx object to append. Use returned id if available, otherwise fallback to timestamp.
+      
       const newTx: Tx = {
         id: created.id ?? Date.now(),
         amount: created.amount ?? amt,
@@ -144,7 +143,7 @@ export default function TransactionsPage() {
         created_at: new Date().toISOString(),
       };
 
-      // Correctly typed setState: setTx expects Tx[]
+      
       setTx((prev) => [newTx, ...prev]);
 
       // reset form
