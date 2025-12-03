@@ -15,12 +15,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
 
     const user = rows[0];
+    console.log(user.user_id);
     const [rows2] = (await db.query(
       "SELECT * FROM Wallets WHERE user_id = ? LIMIT 1",
       [user.user_id]
     )) as any;
 
-    const wallet = rows2.length ? rows2[0] : null;
+    const wallet = rows2[0];
+    console.log(wallet.wallet_id);
 
     const { sessionId, expires } = await createSession(user.user_id);
 
@@ -31,9 +33,8 @@ export async function POST(req: Request) {
     });
     res.cookies.set(SESSION_NAME, user.name);
     res.cookies.set(SESSION_USER_ID, String(user.user_id));
-    if (wallet) {
-      res.cookies.set(SESSION_WALLET_ID, String(wallet.wallet_id));
-    }
+    res.cookies.set(SESSION_WALLET_ID, String(wallet.wallet_id));
+    
 
     return res;
   } catch (err: any) {

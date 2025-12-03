@@ -1,5 +1,3 @@
-
-// app/transactions/page.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -20,11 +18,10 @@ type Wallet = {
   balance?: number;
   user_id?: number | string;
 };
-
 export default function TransactionsPage() {
   const [tx, setTx] = useState<Tx[]>([]);
   const [wallets, setWallets] = useState<Wallet[] | null>(null);
-
+  const [am, setAm]=useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingWallets, setLoadingWallets] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -163,7 +160,7 @@ export default function TransactionsPage() {
       <h1 className="text-3xl font-bold mb-4">Transactions — Demo (TS)</h1>
 
       <section className="mb-8">
-        <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded shadow-sm border">
+        <form onSubmit={handleSubmit} className="space-y-4 bg-blue p-4 rounded shadow-sm border">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">Amount</label>
@@ -187,10 +184,9 @@ export default function TransactionsPage() {
                 required
               >
                 <option value="1">Food</option>
-                <option value="2">Retail</option>
-                <option value="3">Entertainment</option>
-                <option value="4">Bills</option>
-                <option value="5">Transport</option>
+                <option value="3">Utilities</option>
+                <option value="2">Entertainment</option>
+                <option value="4">Other</option>
               </select>
             </div>
           </div>
@@ -264,7 +260,7 @@ export default function TransactionsPage() {
         </form>
       </section>
 
-      <section>
+      <section className="mb-5">
         <h2 className="text-xl font-semibold mb-3">Recent Transactions</h2>
 
         {loading ? (
@@ -274,7 +270,7 @@ export default function TransactionsPage() {
         ) : (
           <div className="space-y-3">
             {tx.map((t) => (
-              <div key={String(t.id)} className="border rounded p-3 bg-white">
+              <div key={String(t.id)} className="border rounded p-3 bg-blue">
                 <div className="flex justify-between items-baseline">
                   <div className="text-sm text-gray-600">Type: {t.type_id}</div>
                   <div className="text-lg font-semibold">{t.amount}</div>
@@ -290,6 +286,33 @@ export default function TransactionsPage() {
           </div>
         )}
       </section>
+      <section className="mt-5 mb-5">
+  <div className="text-gray-400">
+    <h1 className="mb-3">Deposit Amount</h1>
+
+    <input
+      type="number"
+      placeholder="Enter amount to deposit"
+      className="border p-2 rounded w-1/2 pr-5"
+      value={am}
+      onChange={(e) => setAm(Number(e.target.value))}
+    />
+
+    <button
+      className="ml-3 px-4 py-2 rounded bg-green-600 text-white"
+      onClick={async () => {
+        await fetch("/api/deposit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: am }),
+        });
+      }}
+    >
+      Deposit
+    </button>
+  </div>
+</section>
+
     </main>
   );
 }

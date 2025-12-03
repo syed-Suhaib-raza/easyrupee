@@ -8,3 +8,5 @@ export async function GET() {
     return NextResponse.json({ error: 'DB error' }, { status: 500 });
   }
 }
+
+
